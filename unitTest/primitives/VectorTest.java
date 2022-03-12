@@ -10,35 +10,34 @@ import static primitives.Util.isZero;
  *
  * @author Shirel
  */
-class VectorTest {
+class VectorTest{
     Vector v1= new Vector(1,2,3);
     Vector v2= new Vector(-2,-4,-6);
+    Vector v3 = new Vector(0, 3, -2);
+    Vector v4= new Vector(0, 3, 4);
+
 
     @Test
-    void add() {
+    void testDotProduct() {
+        //Simple dotProduct test
+        assertEquals(-28d, v1.dotProduct(v2), 0.00001,"dotProduct() wrong value");
+        // dotProduct for orthogonal vectors
+        assertEquals(0d, v1.dotProduct(v3), 0.00001, "dotProduct() for orthogonal vectors is not zero");
     }
 
-    @Test
-    void scale() {
-    }
+
 
     @Test
-    void dotProduct() {
+    void testNormalize() {
+        // Simple test of normalizing
+        Vector n = v4.normalize();
+        assertFalse(v4 == n, "normalized() changes the vector itself");
 
-
-     assertEquals(-28, v1.dotProduct(v2));
-    }
-
-    @Test
-    void lengthSquared() {
-    }
-
-    @Test
-    void length() {
-    }
-
-    @Test
-    void normalize() {
+        assertEquals(1d, n.lengthSquared(), 0.00001, "wrong normalized vector length");
+        assertThrows(IllegalArgumentException.class,
+                () -> v4.crossProduct(n),
+                "normalized vector is not in the same direction");
+        assertEquals(new Vector(0, 0.6, 0.8), n, "wrong normalized vector");
     }
 
     /**

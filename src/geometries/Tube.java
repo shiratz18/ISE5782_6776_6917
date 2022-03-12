@@ -5,6 +5,9 @@ import primitives.Vector;
 import primitives.Ray;
 import primitives.Point;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 public class Tube implements Geometry{
     protected Ray _axisRay;
     protected double _radius;
@@ -54,6 +57,27 @@ public class Tube implements Geometry{
      */
     @Override
     public Vector getNormal(Point point) {
-        return null;
+
+        Point P0 = _axisRay.getP0();
+        Vector v = _axisRay.getDir();
+
+        Vector P0_P = point.subtract(P0);
+
+        double t = alignZero(v.dotProduct(P0_P));
+
+        if (isZero(t)) {
+            return P0_P.normalize();
+        }
+
+        Point o = P0.add(v.scale(t));
+
+        if (point.equals(o)) {
+            throw new IllegalArgumentException("point cannot be on the tube axis");
+        }
+
+        Vector n = point.subtract(o).normalize();
+
+        return n;
     }
 }
+

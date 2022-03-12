@@ -26,7 +26,8 @@ public class Plane implements Geometry {
      */
     public Plane(Point p1, Point p2, Point p3) {
         _q0=p1;
-       _normal=null;
+        //calculate the normal of plane
+       _normal=(p2.subtract(p1).crossProduct(p3.subtract(p1))).normalize();
     }
 
     /**

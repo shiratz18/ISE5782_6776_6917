@@ -56,10 +56,7 @@ public class Vector extends Point {
      */
     public Vector add(Vector other) {
 
-        Double3 result = new Double3(
-                _xyz.d1 + other._xyz.d1,
-                _xyz.d2 + other._xyz.d2,
-                _xyz.d3 + other._xyz.d3);
+        Double3 result = this.add(other)._xyz;
 
         if (Double3.ZERO.equals(result)) {
             throw new IllegalArgumentException("add vector resulting in ZERO vector not allowed");
@@ -95,10 +92,11 @@ public class Vector extends Point {
      */
      public double lengthSquared()
      {
-         double u1=this._xyz.d1;
-         double u2=this._xyz.d2;
-         double u3=this._xyz.d3;
-         return u1*u1+u2*u2+u3*u3;
+         double u1 =_xyz.d1;
+         double u2 = _xyz.d2;
+         double u3 = _xyz.d3;
+
+         return u1 * u1 + u2 * u2 + u3 * u3;
      }
 
     /**
@@ -112,7 +110,7 @@ public class Vector extends Point {
      public Vector normalize()
      {
          double len =this.length();
-         return new Vector(this._xyz.d1/len,this._xyz.d2,this._xyz.d3 );
+         return new Vector(this._xyz.d1/len,this._xyz.d2/len ,this._xyz.d3/len );
      }
 
     /**
