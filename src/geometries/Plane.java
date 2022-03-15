@@ -1,9 +1,14 @@
 package geometries;
 
-import primitives.Double3;
-import primitives.Vector;
-import primitives.Point;
+import primitives.*;
 
+import java.util.List;
+
+import static primitives.Util.*;
+
+/**
+ * TODO place description here
+ */
 public class Plane implements Geometry {
     private Point _q0;
     private Vector _normal;
@@ -66,5 +71,38 @@ public class Plane implements Geometry {
     public Vector getNormal(Point p)
     {
        return _normal;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        Point P0 = ray.getP0();
+        Vector v = ray.getDir();
+        Vector n = _normal;
+
+        double nv = n.dotProduct(v);
+
+        // ray is lying on the plane: infinite numbers of intersection points
+        if (isZero(nv)){
+            return null;
+        }
+
+        Vector Q0_P0 = P0.subtract(_q0);
+
+        double numerator = n.dotProduct(Q0_P0);
+
+        // P0 is on the plane
+        if(numerator == 0) {
+            return null;
+        }
+
+        //distance to reach P from ray origin
+        double t = alignZero(numerator/nv);
+
+        // if(t < 0 the ray doesn't point towards the plane )
+        if(t > 0){
+            Point P = ray.getPoint(t);//P0.add(v.scale(t));
+            return List.of(P);
+        }
+        return null;
     }
 }

@@ -27,9 +27,9 @@ public class Double3Test {
         //Simple test of vector scale
         assertEquals(new Double3(4,8,12), d1.scale(2),"Wrong double3 scale");
         //test scaling to 0
-      //  assertThrows(IllegalArgumentException.class,
-               // () -> new Double3(1, 2, 3).scale(0d),
-               // "Scale by 0 must throw exception");
+        assertThrows(IllegalArgumentException.class,
+                () -> new Double3(1, 2, 3).scale(0d),
+                "Scale by 0 must throw exception");
     }
 
     @Test
