@@ -15,4 +15,9 @@ public class Triangle extends Polygon{
     public Triangle(Double3 c1, Double3 c2, Double3 c3) {
         super(new Point(c1), new Point(c2), new Point(c3));
     }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return super.findIntersections(ray);
+    }
 }
