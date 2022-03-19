@@ -62,10 +62,17 @@ public class Ray {
                 '}';
     }
 
+    /**
+     * calculate the new point that got by the scale t
+     * @param t the scale
+     * @return new point by the scale
+     */
     public Point getPoint(double t) {
+        //if the scale is 0 the point doesn't change
         if(t==0) {
             return p0;
         }
+        //the scale isn't 0 so the point is starting point plus the vector multiplicative the scale
         return p0.add(dir.scale(t));
 
     }

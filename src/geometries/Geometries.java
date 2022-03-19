@@ -10,19 +10,34 @@ import java.util.List;
 public class Geometries implements Intersectable {
     List<Intersectable> _intersectables = null;
 
+    /**
+     * constructor
+     * @param intersectables all the intersections of geometries
+     */
     public Geometries(Intersectable... intersectables) {
         _intersectables = new LinkedList<>();
         add(intersectables);
     }
 
+    /**
+     * adding intersections to the collection
+     * @param intersectables all the intersections of geometries
+     */
     public void add(Intersectable... intersectables) {
         Collections.addAll(_intersectables, intersectables);
     }
 
+    /**
+     * default construction
+     */
     public Geometries() {
         _intersectables = new LinkedList<>();
     }
-
+    /**
+     *finding all intersection points by checking every case
+     * @param ray the ray {@link Ray} that intersect with the graphic object
+     * @return list of intersection points
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> result = null;

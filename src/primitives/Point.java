@@ -30,6 +30,32 @@ public class Point {
     public Point(Double3 d){_xyz=d;}
 
     /**
+     * getting x
+     * @return coordinate value for X axis
+     */
+    public double getX()
+    {
+        return _xyz.d1;
+    }
+
+    /**
+     * getting y
+     * @return coordinate value for Y axis
+     */
+    public double getY()
+    {
+        return _xyz.d2;
+    }
+
+    /**
+     * getting z
+     * @return coordinate value for Z axis
+     */
+    public double getZ()
+    {
+        return _xyz.d3;
+    }
+    /**
      * checking if the object are the same
      * @param o Object (basicaly another Point3d) to compare
      * @return true or false accordingly

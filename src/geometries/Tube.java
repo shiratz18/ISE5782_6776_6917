@@ -81,7 +81,11 @@ public class Tube implements Geometry{
 
         return n;
     }
-
+    /**
+     *finding all intersection points by checking every case
+     * @param ray the ray {@link Ray} that intersect with the graphic object
+     * @return list of intersection points
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         return null;

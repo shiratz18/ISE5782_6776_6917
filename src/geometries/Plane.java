@@ -75,6 +75,11 @@ public class Plane implements Geometry {
        return _normal;
     }
 
+    /**
+     *finding all intersection points by checking every case
+     * @param ray the ray {@link Ray} that intersect with the graphic object
+     * @return list of intersection points
+     */
     @Override
     public List<Point> findIntersections(Ray ray) {
         Point P0 = ray.getP0();
