@@ -84,32 +84,40 @@ public class Plane implements Geometry {
     public List<Point> findIntersections(Ray ray) {
         Point P0 = ray.getP0();
         Vector v = ray.getDir();
+
         Vector n = _normal;
-
-        double nv = n.dotProduct(v);
-
-        // ray is lying on the plane: infinite numbers of intersection points
-        if (isZero(nv)){
-            return null;
+        //The points are the same so there is no intersections
+        if(_q0.equals(P0)){
+            return  null;
         }
 
-        Vector Q0_P0 = P0.subtract(_q0);
+        Vector P0_Q0 = _q0.subtract(P0);
 
-        double numerator = n.dotProduct(Q0_P0);
+        //numerator
+        double nP0Q0  = alignZero(n.dotProduct(P0_Q0));
 
         // P0 is on the plane
-        if(numerator == 0) {
+        if (isZero(nP0Q0 )){
             return null;
         }
 
-        //distance to reach P from ray origin
-        double t = alignZero(numerator/nv);
+        //denominator
+        double nv = alignZero(n.dotProduct(v));
 
-        // if(t < 0 the ray doesn't point towards the plane )
-        if(t > 0){
-            Point P = ray.getPoint(t);//P0.add(v.scale(t));
-            return List.of(P);
+         // ray is lying on the plane: infinite numbers of intersection points
+        if(isZero(nv)){
+            return null;
         }
-        return null;
+
+        double  t = alignZero(nP0Q0  / nv);
+        // if(t < 0 the ray doesn't point towards the plane )
+        if (t <=0){
+            return  null;
+        }
+
+        Point point = ray.getPoint(t);
+
+        return List.of(point);
     }
+
 }

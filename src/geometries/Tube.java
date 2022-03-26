@@ -9,7 +9,10 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
-
+/**
+ * Tube class represents Tube by ray and radius
+ * system
+ */
 public class Tube implements Geometry{
     protected Ray _axisRay;
     protected double _radius;
@@ -66,13 +69,13 @@ public class Tube implements Geometry{
         Vector P0_P = point.subtract(P0);
 
         double t = alignZero(v.dotProduct(P0_P));
-
+        //v and P0_P are orthogonal
         if (isZero(t)) {
             return P0_P.normalize();
         }
 
         Point o = P0.add(v.scale(t));
-
+        //the point is  on the tube axis
         if (point.equals(o)) {
             throw new IllegalArgumentException("point cannot be on the tube axis");
         }

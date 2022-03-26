@@ -1,19 +1,19 @@
 package primitives;
 
 import java.util.Objects;
-
+// this class presents ray between point to point
 public class Ray {
-    private Point p0;
-    private Vector dir;
+    private Point _p0;
+    private Vector _dir;
 
     /**
-     * constractor
+     * constructor
      * @param p0 point
      * @param dir vector
      */
     public Ray(Point p0, Vector dir) {
-        this.p0 = p0;
-        this.dir = dir.normalize();
+        this._p0 = p0;
+        this._dir = dir.normalize();
     }
 
     /**
@@ -21,7 +21,7 @@ public class Ray {
      * @return value of point
      */
     public Point getP0() {
-        return p0;
+        return _p0;
     }
 
     /**
@@ -29,7 +29,7 @@ public class Ray {
      * @return value of vector
      */
     public Vector getDir() {
-        return dir;
+        return _dir;
     }
 
     /**
@@ -42,12 +42,12 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return Objects.equals(p0, ray.p0) && Objects.equals(dir, ray.dir);
+        return Objects.equals(_p0, ray._p0) && Objects.equals(_dir, ray._dir);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(p0, dir);
+        return Objects.hash(_p0, _dir);
     }
 
     /**
@@ -57,8 +57,8 @@ public class Ray {
     @Override
     public String toString() {
         return "Ray{" +
-                "p0=" + p0 +
-                ", dir=" + dir +
+                "p0=" + _p0 +
+                ", dir=" + _dir +
                 '}';
     }
 
@@ -70,10 +70,10 @@ public class Ray {
     public Point getPoint(double t) {
         //if the scale is 0 the point doesn't change
         if(t==0) {
-            return p0;
+            return _p0;
         }
         //the scale isn't 0 so the point is starting point plus the vector multiplicative the scale
-        return p0.add(dir.scale(t));
+        return _p0.add(_dir.scale(t));
 
     }
 }

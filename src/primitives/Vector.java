@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * This class presents a vector by a point in space
+ */
 public class Vector extends Point {
     /**
      * constructor
@@ -50,18 +53,17 @@ public class Vector extends Point {
 
     /**
      * the function calculates plus between vectors
-     *
      * @param other the vector to add
      * @return algebraic added vector
      */
     public Vector add(Vector other) {
-
+        //create a new double 3 of the result of adding between 2 vectors
         Double3 result = this.add(other)._xyz;
-
+        //if the vectors are the same but in the opposite
         if (Double3.ZERO.equals(result)) {
             throw new IllegalArgumentException("add vector resulting in ZERO vector not allowed");
         }
-        return new Vector(result.d1,result.d2, result.d3);
+        return new Vector(result._d1,result._d2, result._d3);
     }
 
     /**
@@ -78,12 +80,14 @@ public class Vector extends Point {
     /**
      * dot product between two vectors (scalar product)
      * @param vector the right vector of U.V
-     * @return scalre value of dot product
+     * @return scale value of dot product
      */
      public double dotProduct(Vector vector)
      {
+         //create a new double 3 of multi between 2 vectors
          Double3 newD =_xyz.product(vector._xyz);
-         return newD.d1+newD.d2+ newD.d3;
+         //return the sum of the coordinate result
+         return newD._d1+newD._d2+ newD._d3;
      }
 
     /**
@@ -92,9 +96,9 @@ public class Vector extends Point {
      */
      public double lengthSquared()
      {
-         double u1 =_xyz.d1;
-         double u2 = _xyz.d2;
-         double u3 = _xyz.d3;
+         double u1 =_xyz._d1;
+         double u2 = _xyz._d2;
+         double u3 = _xyz._d3;
 
          return u1 * u1 + u2 * u2 + u3 * u3;
      }
@@ -107,10 +111,15 @@ public class Vector extends Point {
     {
         return Math.sqrt(lengthSquared());
     }
+
+    /**
+     * calculate the normal of this vector
+     * @return normalize vector
+     */
      public Vector normalize()
      {
          double len =this.length();
-         return new Vector(this._xyz.d1/len,this._xyz.d2/len ,this._xyz.d3/len );
+         return new Vector(this._xyz._d1/len,this._xyz._d2/len ,this._xyz._d3/len );
      }
 
     /**
@@ -119,12 +128,12 @@ public class Vector extends Point {
      * @return new vector resulting from cross product
      */
     public Vector crossProduct(Vector v) {
-        double u1 = _xyz.d1;
-        double u2 = _xyz.d2;
-        double u3 = _xyz.d3;
-        double v1 = v._xyz.d1;
-        double v2 = v._xyz.d2;
-        double v3 = v._xyz.d3;
+        double u1 = _xyz._d1;
+        double u2 = _xyz._d2;
+        double u3 = _xyz._d3;
+        double v1 = v._xyz._d1;
+        double v2 = v._xyz._d2;
+        double v3 = v._xyz._d3;
 
         return new Vector(
                 u2 * v3 - u3 * v2,

@@ -1,5 +1,9 @@
 package geometries;
 import primitives.*;
+/**
+ * Cylinder class Cylinder by tube and height
+ * system
+ */
 public class Cylinder extends Tube{
     private  double _height;
 

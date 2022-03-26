@@ -8,7 +8,9 @@ public class Double3Test {
 
     Double3 d1= new Double3(2,4,6);
     Double3 d2= new Double3(1,1,2);
-
+    /**
+     * Test method for {@link primitives.Double3#add(Double3 rhs)}.
+     */
     @Test
     void testAdd() {
         //Simple test of adding

@@ -5,6 +5,12 @@ import java.util.List;
 
 import primitives.Point;
 
+import static primitives.Util.isZero;
+
+/**
+ * Triangle class represent a triangle by polygon in 3D Cartesian coordinate
+ * system
+ */
 public class Triangle extends Polygon{
     /**
      * constructor
@@ -22,6 +28,34 @@ public class Triangle extends Polygon{
      */
     @Override
     public List<Point> findIntersections(Ray ray) {
-        return super.findIntersections(ray);
+        //option 1
+        Point p0 = ray.getP0(); //the start ray point
+        Vector v = ray.getDir();
+
+        List<Point> lstPoints = _plane.findIntersections(ray);
+        //There aren't intersection points
+        if (lstPoints == null)
+            return null;
+        //vectors from the ray start point to the polygon vertices
+        Vector v1 = _vertices.get(0).subtract(p0);
+        Vector v2 = _vertices.get(1).subtract(p0);
+        Vector v3 = _vertices.get(2).subtract(p0);
+
+        Vector n1 = v1.crossProduct(v2).normalize();
+        Vector n2 = v2.crossProduct(v3).normalize();
+        Vector n3 = v3.crossProduct(v1).normalize();
+
+        double nv1 = v.dotProduct(n1);
+        double nv2 = v.dotProduct(n2);
+        double nv3 = v.dotProduct(n3);
+        //The point is out of triangle
+        if (isZero(nv1)) return null;
+        if (isZero(nv2)) return null;
+        if (isZero(nv3)) return null;
+
+        return ((nv1 > 0 && nv2 > 0 && nv3 > 0) || (nv1 < 0 && nv2 < 0 && nv3 < 0)) ? lstPoints : null;
+
     }
+
+
 }

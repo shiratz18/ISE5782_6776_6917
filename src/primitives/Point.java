@@ -2,6 +2,9 @@ package primitives;
 
 import java.util.Objects;
 
+/**
+ * This class represents a point in space by 3 coordinates
+ */
 public class Point {
     Double3 _xyz;
 
@@ -35,7 +38,7 @@ public class Point {
      */
     public double getX()
     {
-        return _xyz.d1;
+        return _xyz._d1;
     }
 
     /**
@@ -44,7 +47,7 @@ public class Point {
      */
     public double getY()
     {
-        return _xyz.d2;
+        return _xyz._d2;
     }
 
     /**
@@ -53,7 +56,7 @@ public class Point {
      */
     public double getZ()
     {
-        return _xyz.d3;
+        return _xyz._d3;
     }
     /**
      * checking if the object are the same
@@ -91,8 +94,10 @@ public class Point {
      * @return new point of the result
      */
     public Point add(Vector vector) {
-        Double3 newD=_xyz.add(vector._xyz);
-        return new Point(newD.d1, newD.d2,newD.d3);
+        //create a new double3 with the result of the adding between those vectors
+        Double3 result=_xyz.add(vector._xyz);
+        //create a new point by the details of the result
+        return new Point(result._d1, result._d2,result._d3);
     }
 
     /**
@@ -102,11 +107,14 @@ public class Point {
      * @return new point of the result
      */
     public Vector subtract(Point point) {
-        Double3 newXyz = point._xyz.subtract(_xyz);
-        if(Double3.ZERO.equals(newXyz)) {
+        //create a new double3 with the result of the subtracting between those points
+        Double3 result = _xyz.subtract(point._xyz);
+        //if the result is zero- the points were equals
+        if(Double3.ZERO.equals(result)) {
             throw  new IllegalArgumentException("subtract resulting ZERO vector - not allowed");
         }
-        return new Vector(newXyz.d1, newXyz.d2, newXyz.d3);
+        //create a new vector by the details of the result
+        return new Vector(result._d1, result._d2, result._d3);
     }
 
     /**
@@ -116,8 +124,10 @@ public class Point {
      */
      public double distanceSquared(Point point)
      {
-        Vector newV= point.subtract(this);
-         return newV._xyz.d1*newV._xyz.d1+newV._xyz.d2*newV._xyz.d2+newV._xyz.d3*newV._xyz.d3;
+         //create a new vector with the result of the subtracting between those points
+        Vector result= point.subtract(this);
+        //return the point of each value of result coordinate in pow 2
+         return result._xyz._d1*result._xyz._d1+result._xyz._d2*result._xyz._d2+result._xyz._d3*result._xyz._d3;
      }
 
     /**
