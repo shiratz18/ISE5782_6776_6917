@@ -33,8 +33,8 @@ public class Ray {
     }
 
     /**
-     * equalsing between two objects
-     * @param o Object (basicaly another Point3d) to compare
+     * equaling between two objects
+     * @param o Object (basically another Point3d) to compare
      * @return true or false accordingly
      */
     @Override
@@ -42,7 +42,7 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
-        return Objects.equals(_p0, ray._p0) && Objects.equals(_dir, ray._dir);
+        return _p0.equals(ray._p0) && _dir.equals(ray._dir);
     }
 
     @Override
