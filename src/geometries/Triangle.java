@@ -18,7 +18,7 @@ public class Triangle extends Polygon{
      * @param c2 coordinate value for Y axis
      * @param c3 coordinate value for Z axis
      */
-    public Triangle(Double3 c1, Double3 c2, Double3 c3) {
+    public Triangle(Point c1, Point c2, Point c3) {
         super(new Point(c1), new Point(c2), new Point(c3));
     }
     /**
