@@ -19,8 +19,9 @@ public class Triangle extends Polygon{
      * @param c3 coordinate value for Z axis
      */
     public Triangle(Point c1, Point c2, Point c3) {
-        super(new Point(c1), new Point(c2), new Point(c3));
+        super(c1,c2,c3 );
     }
+
     /**
      *finding all intersection points by checking every case
      * @param ray the ray {@link Ray} that intersect with the graphic object

@@ -38,7 +38,7 @@ public class CameraIntegrationsTest {
         //view plane 3X3 (WxH 3X3 & nx,ny =3 => Rx,Ry =1)
         for (int i = 0; i < nY; ++i) {
             for (int j = 0; j < nX; ++j) {
-                var intersections = geo.findIntersectionpoints(cam.constructRay(nX, nY, j, i));
+                var intersections = geo.findIntersections(cam.constructRay(nX, nY, j, i));
                 if (intersections != null) {
                     if (allPoints == null) {
                         allPoints = new LinkedList<>();

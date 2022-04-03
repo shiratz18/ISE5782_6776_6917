@@ -9,7 +9,7 @@ import java.awt.color.ICC_Profile;
 import static primitives.Util.isZero;
 
 /**
- * This class represents a camera
+ * This class represents a camera in the scene
  */
 public class Camera {
     // reference point of the camera in 3D space
@@ -96,8 +96,8 @@ public class Camera {
      *
      * @param Nx amount of logical columns
      * @param Ny amount of logical rows
-     * @param j  j
-     * @param i  i
+     * @param j  j value y of intersection point
+     * @param i  i value x of intersection point
      * @return ray from camera's p0 to the viewplane (i,j)
      */
     public Ray constructRay(int Nx, int Ny, int j, int i) {

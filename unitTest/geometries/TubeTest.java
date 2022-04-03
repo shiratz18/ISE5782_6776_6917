@@ -51,8 +51,7 @@ public class TubeTest {
         assertEquals(2, result.size(), "must be 2 intersections");
 
         if (result.get(0).getY() > result.get(1).getY()) {
-            result = List.of(result.get(1), result.g
-                    et(0));
+            result = List.of(result.get(1), result.get(0));
         }
         assertEquals(List.of(new Point(0.4, 0.2, 0.2), new Point(2, 1, 1)), result, "Bad intersections");
 
