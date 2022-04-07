@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 // this class presents ray between point to point
 public class Ray {
@@ -75,5 +76,29 @@ public class Ray {
         //the scale isn't 0 so the point is starting point plus the vector multiplicative the scale
         return _p0.add(_dir.scale(t));
 
+    }
+    /**
+     * find the closest Point to Ray origin
+     * @param pointsList intersections point List
+     * @return closest point
+     */
+    public Point findClosestPoint(List<Point> pointsList){
+        Point result =null;
+        double closestDistance = Double.MAX_VALUE;
+        //There aren't points in the list
+        if(pointsList== null){
+            return null;
+        }
+       //move on the points
+        for (Point p: pointsList) {
+            double temp = p.distance(_p0);
+            //if found a point is closer
+            if(temp < closestDistance){
+                closestDistance =temp;
+                result =p;
+            }
+        }
+
+        return  result;
     }
 }

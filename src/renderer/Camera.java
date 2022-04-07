@@ -1,10 +1,12 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
 import java.awt.color.ICC_Profile;
+import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
 
@@ -26,6 +28,8 @@ public class Camera {
     private double _width = 500;
     //reference height of view plane
     private double _height = 500;
+    private ImageWriter _imageWriter;
+    private RayTracerBase _rayTracerBase;
 
     /**
      * constructor
@@ -79,17 +83,6 @@ public class Camera {
         return this;
     }
 
-    /**
-     * set the view plane size
-     * @param width  physical width
-     * @param height physical height
-     * @return the Camera instance
-     */
-    public Camera setVPSize(int width, int height) {
-        _width = width;
-        _height = height;
-        return this;
-    }
 
     /**
      * Constructing a ray through a pixel
@@ -124,5 +117,80 @@ public class Camera {
 
     //to do
         return new Ray(_p0, Pij.subtract(_p0));
+    }
+
+    public Camera setVPDistance(int distance) {
+        this._distance = distance;
+        return this;
+    }
+
+    /**
+     * set the view plane size
+     * @param width  physical width
+     * @param height physical height
+     * @return the Camera instance
+     */
+    public Camera setVPSize(int width, int height) {
+        this._width = width;
+        this._height = height;
+        return this;
+    }
+    //setters with returning
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this._imageWriter = imageWriter;
+        return this;
+    }
+
+    public Camera setRayTracer(RayTracerBase rayTracer) {
+        this._rayTracerBase = rayTracer;
+        return this;
+    }
+
+    /**
+     * checking if in every field there is a value
+     */
+    public void renderImage() {
+        try {
+            if (_imageWriter == null) {
+                throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+            }
+            if (_rayTracerBase == null) {
+                throw new MissingResourceException("missing resource", RayTracerBase.class.getName(), "");
+            }
+
+            //rendering the image
+            int nX = _imageWriter.getNx();
+            int nY = _imageWriter.getNy();
+            for (int i = 0; i < nX; i++) {
+                for (int j = 0; j < nY; j++) {
+                    Ray ray = constructRay(nX, nY, j, i);
+                    Color pixelColor = _rayTracerBase.traceRay(ray);
+                    _imageWriter.writePixel(j, i, pixelColor);
+                }
+            }
+        } catch (MissingResourceException e) {
+            throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
+        }
+    }
+
+    /**
+     * creating of lines net
+     * @param interval between the lines
+     * @param color for lines net
+     */
+    public void printGrid(int interval, Color color) {
+        if (_imageWriter == null) {
+            throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+        }
+        _imageWriter.printGrid(interval, color);
+    }
+    /**
+     * start a method of create the image
+     */
+    public void writeToImage() {
+        if (_imageWriter == null) {
+            throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
+        }
+        _imageWriter.writeToImage();
     }
 }
