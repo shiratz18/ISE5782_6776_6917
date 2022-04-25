@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -9,7 +10,7 @@ import static primitives.Util.*;
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
  * system
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -97,12 +98,15 @@ public class Polygon implements Geometry {
      * @param ray the ray {@link Ray} that intersect with the graphic object
      * @return list of intersection points
      */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> result = _plane.findIntersections(ray);
 
-        if (result == null) {
-            return result;
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = new LinkedList<GeoPoint>();
+        intersections = _plane.findGeoIntersectionsHelper(ray);
+
+        if (intersections == null) {
+            return intersections;
         }
 
         Point P0 = ray.getP0();
@@ -137,7 +141,7 @@ public class Polygon implements Geometry {
             }
         }
 
-        return result;
+        return intersections;
     }
 
 }

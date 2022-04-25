@@ -74,9 +74,12 @@ public class Scene {
             return this;
         }
 
+        public Geometries getGeometries() {
+            return _geometries;
+        }
+
         public SceneBuilder(String name) {
             _name = name;
-
         }
 
         /**

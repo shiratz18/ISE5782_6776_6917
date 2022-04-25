@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.*;
@@ -11,7 +12,7 @@ import static primitives.Util.isZero;
 /**
  * TODO place description here
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     private Point _q0;
     private Vector _normal;
 
@@ -80,8 +81,9 @@ public class Plane implements Geometry {
      * @param ray the ray {@link Ray} that intersect with the graphic object
      * @return list of intersection points
      */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
+
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = new LinkedList<GeoPoint>();
         Point P0 = ray.getP0();
         Vector v = ray.getDir();
 
@@ -104,7 +106,7 @@ public class Plane implements Geometry {
         //denominator
         double nv = alignZero(n.dotProduct(v));
 
-         // ray is lying on the plane: infinite numbers of intersection points
+        // ray is lying on the plane: infinite numbers of intersection points
         if(isZero(nv)){
             return null;
         }
@@ -114,10 +116,9 @@ public class Plane implements Geometry {
         if (t <=0){
             return  null;
         }
-
-        Point point = ray.getPoint(t);
-
-        return List.of(point);
+        intersections.add(new GeoPoint(this,ray.getPoint(t)));
+        return intersections;
     }
+
 
 }

@@ -2,6 +2,7 @@ package primitives;
 
 import java.util.List;
 import java.util.Objects;
+import geometries.Intersectable.GeoPoint;
 // this class presents ray between point to point
 public class Ray {
     private Point _p0;
@@ -79,19 +80,24 @@ public class Ray {
     }
     /**
      * find the closest Point to Ray origin
-     * @param pointsList intersections point List
+     * @param points intersections point List
      * @return closest point
      */
-    public Point findClosestPoint(List<Point> pointsList){
-        Point result =null;
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList())._point;
+    }
+
+    public GeoPoint findClosestGeoPoint (List<GeoPoint> geoPointsList){
+        GeoPoint result =null;
         double closestDistance = Double.MAX_VALUE;
         //There aren't points in the list
-        if(pointsList== null){
+        if(geoPointsList== null){
             return null;
         }
-       //move on the points
-        for (Point p: pointsList) {
-            double temp = p.distance(_p0);
+        //move on the points
+        for (GeoPoint p: geoPointsList) {
+            double temp = p._point.distance(_p0);
             //if found a point is closer
             if(temp < closestDistance){
                 closestDistance =temp;
@@ -101,4 +107,5 @@ public class Ray {
 
         return  result;
     }
+
 }
