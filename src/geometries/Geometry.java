@@ -1,18 +1,25 @@
 package geometries;
 
 import lighting.AmbientLight;
-import primitives.Color;
-import primitives.Double3;
-import  primitives.Vector;
-import  primitives.Point;
+import primitives.*;
 import scene.Scene;
 
 /**
  * interface for all graphic geometry that have a normal
  */
 public abstract class Geometry extends Intersectable {
-    protected Color _emission=Color.BLACK;
-  
+    private Color _emission=Color.BLACK;
+    private Material _material=new Material();
+
+    public Geometry setMaterial(Material material) {
+        _material = material;
+        return this;
+    }
+
+    public Material getMaterial() {
+        return _material;
+    }
+
     /**
      * getter emission
      * @return emission

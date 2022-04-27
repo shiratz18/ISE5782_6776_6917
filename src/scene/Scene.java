@@ -2,10 +2,13 @@ package scene;
 
 import lighting.AmbientLight;
 import geometries.Geometries;
+import lighting.LightSource;
 import primitives.Color;
 import primitives.Point;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * class that presents data structure representing geometries, textures,
@@ -17,6 +20,7 @@ public class Scene {
     private final Color _background;
     private final AmbientLight _ambientLight;
     private final Geometries _geometries;
+    private List<LightSource> _lights;
 
     /**
      * constructor
@@ -53,6 +57,7 @@ public class Scene {
         public Color _background=Color.BLACK;
         public AmbientLight _ambientLight= new AmbientLight();
         public Geometries _geometries= new Geometries();
+        public List<LightSource> _lights =new LinkedList<>();
         private SceneBuilder _builder;
         //setters
         public SceneBuilder setBackground(Color background) {
@@ -73,7 +78,10 @@ public class Scene {
             _geometries = geometries;
             return this;
         }
-
+        public SceneBuilder setLights(List<LightSource> lights) {
+            _lights = lights;
+            return this;
+        }
         public Geometries getGeometries() {
             return _geometries;
         }

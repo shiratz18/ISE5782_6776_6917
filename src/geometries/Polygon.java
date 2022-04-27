@@ -104,6 +104,8 @@ public class Polygon extends Geometry {
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> intersections = new LinkedList<GeoPoint>();
         intersections = _plane.findGeoIntersectionsHelper(ray);
+        for(GeoPoint g:intersections)
+            g._geometry=this;
 
         if (intersections == null) {
             return intersections;

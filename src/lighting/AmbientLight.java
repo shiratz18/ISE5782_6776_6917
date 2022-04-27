@@ -6,11 +6,8 @@ import primitives.Double3;
 /**
  * Ambient Light Color
  */
-public class AmbientLight {
-    /**
-     * intensity of ambient light color
-     */
-    final private Color _intensity;
+public class AmbientLight extends Light {
+
 
     /**
      * Constructor
@@ -18,19 +15,16 @@ public class AmbientLight {
      * @param Ka constant for intensity
      */
     public AmbientLight(Color Ia, Double3 Ka) {
-        _intensity = Ia.scale(Ka);
-    }
-
-    public AmbientLight() {
-        _intensity = Color.BLACK;
+        super(Ia.scale(Ka));
     }
 
     /**
-     * get intensity color
-     * @return intensity
+     * default constructor
      */
-    public Color getIntensity() {
-        return _intensity;
+    public AmbientLight() {
+        super(Color.BLACK);
     }
+
+
 
 }

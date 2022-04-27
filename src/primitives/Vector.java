@@ -24,7 +24,9 @@ public class Vector extends Point {
     public Vector(Double3 d) {
         super(d);
     }
-
+    public Vector(Vector v) {
+        this(v._xyz);
+    }
     /**
      * equalsing between two objects
      * @param o Object (basicaly another Point3d) to compare

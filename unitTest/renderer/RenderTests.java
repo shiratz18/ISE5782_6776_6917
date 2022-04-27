@@ -1,4 +1,4 @@
-package unittests.renderer;
+package renderer;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +25,7 @@ public class RenderTests {
         Scene scene = new Scene.SceneBuilder("Test scene")//
                 .setAmbientLight(new AmbientLight(new Color(255, 191, 191), //
                         new Double3(1, 1, 1))) //
-                .setBackground(new Color(75, 127, 90));
+                .setBackground(new Color(75, 127, 90)).build();
 
         scene.getGeometries().add(new Sphere(new Point(0, 0, -100), 50d),
                 new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
@@ -52,8 +52,8 @@ public class RenderTests {
      */
     @Test
     public void basicRenderMultiColorTest() {
-        Scene scene = new Scene.("Test scene")//
-                .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))); //
+        Scene scene = new Scene.SceneBuilder("Test scene")//
+                .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2))).build(); //
 
         scene.getGeometries().add( //
                 new Sphere(new Point(0, 0, -100), 50),
@@ -77,11 +77,11 @@ public class RenderTests {
         camera.printGrid(100, new Color(WHITE));
         camera.writeToImage();
     }
+/**
 
     /**
      * Test for XML based scene - for bonus
-     */
-    /**
+
     @Test
     public void basicRenderXml() {
         Scene scene = new Scene("XML Test scene");
@@ -96,5 +96,5 @@ public class RenderTests {
         camera.printGrid(100, new Color(YELLOW));
         camera.writeToImage();
     }
-    **/
+     */
 }
