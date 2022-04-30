@@ -31,6 +31,7 @@ public class Scene {
         _background = builder._background;
         _ambientLight = builder._ambientLight;
         _geometries = builder._geometries;
+        _lights=builder._lights;
     }
     //getters
     public String getName() {
@@ -45,15 +46,18 @@ public class Scene {
         return _ambientLight;
     }
 
-    public Geometries getGeometries() {
-        return _geometries;
+    public List<LightSource> getLights() {
+        return _lights;
     }
+
+    public Geometries getGeometries() {return _geometries;}
+
 
     /**
      * helping class of scene
      */
     public static class SceneBuilder {
-        private final String _name;
+        private  String _name;
         public Color _background=Color.BLACK;
         public AmbientLight _ambientLight= new AmbientLight();
         public Geometries _geometries= new Geometries();
@@ -86,9 +90,13 @@ public class Scene {
             return _geometries;
         }
 
+        public List<LightSource> getLights() {return _lights;}
+
         public SceneBuilder(String name) {
             _name = name;
         }
+
+
 
         /**
          * builder

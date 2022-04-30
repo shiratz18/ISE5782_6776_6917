@@ -60,7 +60,7 @@ public class Vector extends Point {
      */
     public Vector add(Vector other) {
         //create a new double 3 of the result of adding between 2 vectors
-        Double3 result = this.add(other)._xyz;
+        Double3 result = this._xyz.add(other._xyz);
         //if the vectors are the same but in the opposite
         if (Double3.ZERO.equals(result)) {
             throw new IllegalArgumentException("add vector resulting in ZERO vector not allowed");

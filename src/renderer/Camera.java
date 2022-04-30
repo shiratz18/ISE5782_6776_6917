@@ -149,7 +149,7 @@ public class Camera {
     /**
      * checking if in every field there is a value
      */
-    public void renderImage() {
+    public Camera renderImage() {
         try {
             if (_imageWriter == null) {
                 throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
@@ -171,6 +171,7 @@ public class Camera {
         } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Not implemented yet" + e.getClassName());
         }
+        return this;
     }
 
     /**
