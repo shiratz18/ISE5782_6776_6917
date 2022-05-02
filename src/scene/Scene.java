@@ -18,7 +18,7 @@ public class Scene {
 
     private final String _name;
     private final Color _background;
-    private final AmbientLight _ambientLight;
+    private AmbientLight _ambientLight;
     private final Geometries _geometries;
     private List<LightSource> _lights;
 
@@ -51,6 +51,11 @@ public class Scene {
     }
 
     public Geometries getGeometries() {return _geometries;}
+
+    public Scene setAmbientLight(AmbientLight ambientLight) {
+        this._ambientLight= ambientLight;
+        return this;
+    }
 
 
     /**

@@ -1,8 +1,7 @@
-package renderer;
+package lighting;
 
 import org.junit.jupiter.api.Test;
 
-import lighting.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -35,12 +34,12 @@ public class LightsTests {
     private Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
     private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
     private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
-    private Material material = new Material().setkD(0.5).setkS(0.5).setShininess(300);
+    private Material material = new Material().setKd(0.5).setKs(0.5).setShininess(300);
     private Geometry triangle1 = new Triangle(p[0], p[1], p[2]).setMaterial(material);
     private Geometry triangle2 = new Triangle(p[0], p[1], p[3]).setMaterial(material);
     private Geometry sphere = new Sphere(new Point(0, 0, -50), 50d) //
             .setEmission(new Color(BLUE).reduce(2)) //
-            .setMaterial(new Material().setkD(0.5).setkS(0.5).setShininess(300));
+            .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300));
 
     /**
      * Produce a picture of a sphere lighted by a directional light
@@ -63,7 +62,7 @@ public class LightsTests {
     @Test
     public void spherePoint() {
         scene1.getGeometries().add(sphere);
-        scene1.getLights().add(new PointLight(spCL, spPL).setkL(0.001).setkQ(0.0002));
+        scene1.getLights().add(new PointLight(spCL, spPL).setKl(0.001).setKq(0.0002));
 
         ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
         camera1.setImageWriter(imageWriter) //
@@ -78,7 +77,7 @@ public class LightsTests {
     @Test
     public void sphereSpot() {
         scene1.getGeometries().add(sphere);
-        scene1.getLights().add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setkL(0.001).setkQ(0.0001));
+        scene1.getLights().add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setKl(0.001).setKq(0.0001));
 
         ImageWriter imageWriter = new ImageWriter("lightSphereSpot", 500, 500);
         camera1.setImageWriter(imageWriter) //
@@ -86,6 +85,27 @@ public class LightsTests {
                 .renderImage() //
                 .writeToImage(); //
     }
+    /**
+     * Produce a picture of a sphere lighted by directional light, point light and spot light
+     */
+    @Test
+    public void sphereAll(){
+        Point spPL1=new Point(130,0,25);
+        Point spPL2=new Point(-30,100,25);
+        scene1.getGeometries().add(sphere);
+        scene1.getLights().add(new DirectionalLight(spCL, new Vector(1, 1.5, -0.5)));
+        scene1.getLights().add(new PointLight(spCL, spPL1).setKl(0.0001).setKq(0.0002));
+        scene1.getLights().add(new SpotLight(spCL, spPL2, new Vector(3, -10, -2.5)).setKl(0.001).setKq(0.0001));
+
+
+        ImageWriter imageWriter = new ImageWriter("lightSphereAll", 500, 500);
+        camera1.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene1)) //
+                .renderImage() //
+                .writeToImage(); //
+    }
+
+
 
     /**
      * Produce a picture of a two triangles lighted by a directional light
@@ -108,7 +128,7 @@ public class LightsTests {
     @Test
     public void trianglesPoint() {
         scene2.getGeometries().add(triangle1, triangle2);
-        scene2.getLights().add(new PointLight(trCL, trPL).setkL(0.001).setkQ(0.0002));
+        scene2.getLights().add(new PointLight(trCL, trPL).setKl(0.001).setKq(0.0002));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
         camera2.setImageWriter(imageWriter) //
@@ -123,7 +143,7 @@ public class LightsTests {
     @Test
     public void trianglesSpot() {
         scene2.getGeometries().add(triangle1, triangle2);
-        scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setkL(0.001).setkQ(0.0001));
+        scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setKl(0.001).setKq(0.0001));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
         camera2.setImageWriter(imageWriter) //
@@ -131,10 +151,10 @@ public class LightsTests {
                 .renderImage() //
                 .writeToImage(); //
     }
-/**
+
     /**
      * Produce a picture of a sphere lighted by a narrow spot light
-
+    */
     @Test
     public void sphereSpotSharp() {
         scene1.getGeometries().add(sphere);
@@ -150,11 +170,11 @@ public class LightsTests {
 
     /**
      * Produce a picture of a two triangles lighted by a narrow spot light
-
+    */
     @Test
     public void trianglesSpotSharp() {
-        scene2.getGeometries().add(triangle1, triangle2);
-        scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).setkL(0.001).setKq(0.00004));
+    scene2.getGeometries().add(triangle1, triangle2);
+        scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpotSharp", 500, 500);
         camera2.setImageWriter(imageWriter) //
@@ -162,5 +182,25 @@ public class LightsTests {
                 .renderImage() //
                 .writeToImage(); //
     }
-*/
+    /**
+     * Produce a picture of a two triangle lighted by directional light, point light and spot light
+     */
+    @Test
+    public void triangleAll(){
+        Vector trDL1=new Vector(-2,-5,-2);
+        Vector trDL2=new Vector(-2,2,2);
+        Point trPL1=new Point(-5,10,30);
+        Point trPL2=new Point(60,55,-125);
+        scene2.getGeometries().add(triangle1, triangle2);
+        scene2.getLights().add(new DirectionalLight(trCL, trDL1));
+        scene2.getLights().add(new PointLight(trCL, trPL2).setKl(0.001).setKq(0.0002));
+        scene2.getLights().add(new SpotLight(trCL, trPL1, trDL2).setKl(0.001).setKq(0.0001));
+
+        ImageWriter imageWriter = new ImageWriter("lightTriangleAll", 500, 500);
+        camera2.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene2)) //
+                .renderImage() //
+                .writeToImage(); //
+    }
+
 }
