@@ -13,6 +13,11 @@ import java.util.List;
  * class of ray tracer basic that inherit from ray tracer base
  */
 public class RayTracerBasic extends RayTracerBase {
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final double INITIAL_K = 1d;
+    private static final double MIN_CALC_COLOR_K = 0.001;
+    private static  final double DELTA = 0.1;
+
     private Double3 kd;
 
     /**
@@ -49,9 +54,52 @@ public class RayTracerBasic extends RayTracerBase {
      * @return its color
      */
     private Color calcColor(GeoPoint intersection, Ray ray) {
-        return _scene.getAmbientLight().getIntensity().add(intersection._geometry.getEmission()).add(calcLocalEffect(intersection,ray));
+        Color ambientLight = _scene.getAmbientLight().getIntensity();
+//        Color Il = intersection._geometry.getEmission();
+//
+//        Color result = Il.add(calcLocalEffect(intersection,ray), ambientLight);
+        return calcColor(intersection, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K)
+                .add(ambientLight);
 
     }
+
+    private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
+        //aliba de shaili
+        Color color = calcLocalEffect(intersection, ray);
+        if(level == 1)
+            return color;
+        color = color.add(calcGlobalEffects(intersection, ray, level, k));
+        return color;
+    }
+
+    private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
+        Color color = Color.BLACK; Vector n = gp._geometry.getNormal(gp._point);
+        Material material = gp._geometry.getMaterial();
+        Double3 kkr = material._kr.scale(k);
+        if (! kkr.lowerThan(MIN_CALC_COLOR_K))
+            color = calcGlobalEffect(constructReflectedRay(gp._point, v, n), level, material._kr, kkr);
+        Double3 kkt = material._kt.scale(k);
+        if (! kkt.lowerThan(MIN_CALC_COLOR_K))
+            color = color.add(
+                    calcGlobalEffect(constructRefractedRay(gp._point, v, n), level, material._kt, kkt));
+        return color;
+    }
+
+    private Ray constructReflectedRay(Point point, Vector v, Vector n) {
+        Point deltaPoint = point.add(n.scale(DELTA));
+        return new Ray(deltaPoint,v);
+    }
+
+    private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx) {
+        GeoPoint gp = findClosestIntersection (ray);
+        return (gp == null ? _scene.getBackground() : calcColor(gp, ray, level - 1, kkx)
+        ).scale(kx));
+    }
+
+    private GeoPoint findClosestIntersection(Ray ray) {
+
+    }
+
     private Color calcLocalEffect(GeoPoint intersection, Ray ray) {
         Vector v = ray.getDir();
         Vector n = intersection._geometry.getNormal(intersection._point);

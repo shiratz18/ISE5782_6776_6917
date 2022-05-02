@@ -6,7 +6,7 @@ import primitives.Vector;
 
 public class PointLight extends Light implements LightSource{
     private Point _position;
-    private double _kC=0;// Constant attenuation
+    private double _kC=1;// Constant attenuation
     private double _kL=0;// Linear attenuation
     private double _kQ=0;// Quadratic attenuation
 
@@ -25,17 +25,17 @@ public class PointLight extends Light implements LightSource{
      */
     public PointLight(Color intensity,Point position) {this(intensity,position,1d,0d,0d);}
 
-    public PointLight setkC(double kC) {
+    public PointLight setKc(double kC) {
         _kC = kC;
         return this;
     }
 
-    public PointLight setkL(double kL) {
+    public PointLight setKl(double kL) {
         _kL = kL;
         return this;
     }
 
-    public PointLight setkQ(double kQ) {
+    public PointLight setKq(double kQ) {
         _kQ = kQ;
         return this;
     }
@@ -45,7 +45,12 @@ public class PointLight extends Light implements LightSource{
         double dsquared = p.distanceSquared(_position);
         double d = p.distance(_position);
 
-        return (_intensity.reduce(_kC + _kL * d + _kQ * dsquared));
+        //factor of attenuation depends on distance
+        double factor = _kC + _kL * d + _kQ * dsquared;
+        // attenuate intensity by factor;
+        Color result = _intensity.reduce(factor);
+
+        return result;
     }
 
     @Override
