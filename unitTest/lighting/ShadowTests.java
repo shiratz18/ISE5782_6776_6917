@@ -115,5 +115,16 @@ public class ShadowTests {
 				.renderImage() //
 				.writeToImage();
 	}
-
+	/**
+	 * Produce a picture of a sphere and triangle with point light and no shade
+	 */
+	@Test
+	public void sphereTriangleNotShadow() {
+		sphereTriangleHelper("NotShadowSphereTriangle", //
+				new Triangle(
+						new Point(-70, -40, 0),
+						new Point(-40, -70, 0),
+						new Point(-68, -68, -4)), //
+				new Point(-42.83, -42.83, 21.5));
+	}
 }
