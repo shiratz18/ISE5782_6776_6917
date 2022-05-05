@@ -20,10 +20,55 @@ public abstract class Intersectable {
                 : geoList.stream().map(gp -> gp._point).toList();
     }
 
-    public  List<GeoPoint> findGeoIntersections(Ray ray){return findGeoIntersectionsHelper(ray);}
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
-    //
+    /**
+     * find all intersection points {@link Point}
+     * that intersect with a specific ray{@link Ray} in a range of distance
+     * @param ray ray pointing towards the graphic object
+     * @param maxDistance the maximum distance between the point to the start of the ray
+     * @return immutable list of intersection geo points {@link GeoPoint}
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+    /**
+     * find all intersection points {@link Point}
+     * that intersect with a specific ray{@link Ray}
+     * @param ray ray pointing towards the graphic object
+     * @return immutable list of intersection geo points {@link GeoPoint}
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
+    }
+
+    /**
+     * helper of findGeoIntersections
+     * @param ray ray pointing towards the graphic object
+     * @param maxDistance the maximum distance between the point to the start of the ray
+     * @return immutable list of intersection geo points {@link GeoPoint}
+     */
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * geo point is the point with the geometry object that it's on
+     */
     public static class GeoPoint {
         public Geometry _geometry;
         public Point _point;
