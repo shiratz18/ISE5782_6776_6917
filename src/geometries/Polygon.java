@@ -100,6 +100,14 @@ public class Polygon extends Geometry {
      */
 
 
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        return null;
+    }
+
+
+/**
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> intersections = new LinkedList<GeoPoint>();
@@ -145,5 +153,5 @@ public class Polygon extends Geometry {
 
         return intersections;
     }
-
+*/
 }

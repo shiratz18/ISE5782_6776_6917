@@ -63,6 +63,7 @@ public class Sphere extends Geometry{
         return p0_p.normalize();
     }
     /**
+     * צריך לשנות
      *finding all intersection points by checking every case
      * @param ray the ray {@link Ray} that intersect with the graphic object
      * @return list of intersection points

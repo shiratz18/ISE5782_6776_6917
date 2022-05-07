@@ -39,11 +39,11 @@ public class Triangle extends Polygon {
         Vector v = ray.getDir();
 
         intersections = _plane.findGeoIntersections(ray);
-        for(GeoPoint g:intersections)
-            g._geometry=this;
         //There aren't intersection points
         if (intersections == null)
             return null;
+        for(GeoPoint g:intersections)
+            g._geometry=this;
         //vectors from the ray start point to the polygon vertices
         Vector v1 = _vertices.get(0).subtract(p0);
         Vector v2 = _vertices.get(1).subtract(p0);

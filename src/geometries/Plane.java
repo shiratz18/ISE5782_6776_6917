@@ -81,7 +81,30 @@ public class Plane extends Geometry {
      * @param ray the ray {@link Ray} that intersect with the graphic object
      * @return list of intersection points
      */
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+        Vector n = _normal;
 
+        double nv = n.dotProduct(v);
+        //ray parallel to plane or ray begins in the same point which appears as the plane's reference point
+        if (isZero(nv) || _q0.equals(p0))
+            return null;
+        double nQMinusP0 = n.dotProduct(_q0.subtract(p0));
+        double t = alignZero(nQMinusP0 / nv);
+        if (t > 0 && alignZero(t - maxDistance) <= 0) {
+            Point p = ray.getPoint(t);
+            return List.of(new GeoPoint(this, p));
+        }
+        //t<=0
+        return null;
+    }
+
+
+
+    //הקודם
+/**
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> intersections = new LinkedList<GeoPoint>();
         Point P0 = ray.getP0();
@@ -119,6 +142,6 @@ public class Plane extends Geometry {
         intersections.add(new GeoPoint(this,ray.getPoint(t)));
         return intersections;
     }
-
+*/
 
 }

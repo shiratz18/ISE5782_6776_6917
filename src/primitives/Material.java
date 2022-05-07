@@ -5,6 +5,27 @@ public class Material {
     public Double3 _kS = new Double3( 0d);
     public int _nShininess = 0;
     public Double3 _kr= new Double3(0d);
+
+    public Material setKr(Double3 kr) {
+        _kr = kr;
+        return this;
+    }
+
+    public Material setKt(Double3 kt) {
+        _kt = kt;
+        return this;
+    }
+
+    public Material setKr(double kr) {
+        _kr = new Double3(kr);
+        return this;
+    }
+
+    public Material setKt(double kt) {
+        _kt =new Double3(kt);
+        return this;
+    }
+
     public Double3 _kt = new Double3(0d);
 
 
