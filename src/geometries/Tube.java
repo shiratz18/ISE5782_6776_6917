@@ -85,11 +85,12 @@ public class Tube extends Geometry{
 
         return n;
     }
+
     /**
      *
      * @param ray the ray {@link Ray} that intersect with the graphic object tube
      * @return intersection points
-     */
+*/
     @Override
     public List<Point> findIntersections(Ray ray) {
         Vector vAxis = _axisRay.getDir();
@@ -170,6 +171,12 @@ public class Tube extends Geometry{
     }
 
     @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        return null;
+    }
+
+/**
+    @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> intersections = new LinkedList<GeoPoint>();
         Vector vAxis = _axisRay.getDir();
@@ -248,5 +255,6 @@ public class Tube extends Geometry{
         else // t2 is behind the head
             return List.of(new GeoPoint(this,ray.getPoint(_radius)));
     }
+    */
 }
 

@@ -148,7 +148,7 @@ public class Camera {
 
     /**
      * checking if in every field there is a value
-     */
+*/
     public Camera renderImage() {
         try {
             if (_imageWriter == null) {
@@ -163,9 +163,9 @@ public class Camera {
             int nY = _imageWriter.getNy();
             for (int i = 0; i < nX; i++) {
                 for (int j = 0; j < nY; j++) {
-                    Ray ray = constructRay(nX, nY, j, i);
+                    Ray ray = constructRay(nX, nY, i, j);
                     Color pixelColor = _rayTracerBase.traceRay(ray);
-                    _imageWriter.writePixel(j, i, pixelColor);
+                    _imageWriter.writePixel(i, j, pixelColor);
                 }
             }
         } catch (MissingResourceException e) {
@@ -173,6 +173,9 @@ public class Camera {
         }
         return this;
     }
+
+
+
 
     /**
      * creating of lines net
@@ -188,10 +191,11 @@ public class Camera {
     /**
      * start a method of create the image
      */
-    public void writeToImage() {
+    public Camera writeToImage() {
         if (_imageWriter == null) {
             throw new MissingResourceException("missing resource", ImageWriter.class.getName(), "");
         }
         _imageWriter.writeToImage();
+        return this;
     }
 }

@@ -101,47 +101,4 @@ public class Plane extends Geometry {
         return null;
     }
 
-
-
-    //הקודם
-/**
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> intersections = new LinkedList<GeoPoint>();
-        Point P0 = ray.getP0();
-        Vector v = ray.getDir();
-
-        Vector n = _normal;
-        //The points are the same so there is no intersections
-        if(_q0.equals(P0)){
-            return  null;
-        }
-
-        Vector P0_Q0 = _q0.subtract(P0);
-
-        //numerator
-        double nP0Q0  = alignZero(n.dotProduct(P0_Q0));
-
-        // P0 is on the plane
-        if (isZero(nP0Q0 )){
-            return null;
-        }
-
-        //denominator
-        double nv = alignZero(n.dotProduct(v));
-
-        // ray is lying on the plane: infinite numbers of intersection points
-        if(isZero(nv)){
-            return null;
-        }
-
-        double  t = alignZero(nP0Q0  / nv);
-        // if(t < 0 the ray doesn't point towards the plane )
-        if (t <=0){
-            return  null;
-        }
-        intersections.add(new GeoPoint(this,ray.getPoint(t)));
-        return intersections;
-    }
-*/
-
 }
