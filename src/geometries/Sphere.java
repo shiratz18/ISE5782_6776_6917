@@ -72,7 +72,8 @@ public class Sphere extends Geometry{
         Vector u;
         try {
             u = _center.subtract(p0);
-        } catch (IllegalArgumentException ignore) {
+        }
+        catch (IllegalArgumentException ignore) {
             if (alignZero(_radius - maxDistance) <= 0)
                 result = List.of(new GeoPoint(this, ray.getPoint(_radius)));
             return result;

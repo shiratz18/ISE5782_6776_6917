@@ -199,7 +199,7 @@ public class RayTracerBasic extends RayTracerBase {
         Vector epsVector = n.scale(nl < 0 ? DELTA : -1*DELTA);
         Point point = gp._point.add(epsVector);
         Ray lightRay = new Ray(point, lightDirection);
-        List<GeoPoint> intersections = _scene.getGeometries().findGeoIntersections(lightRay);
+        List<GeoPoint> intersections = _scene.getGeometries().findGeoIntersections(lightRay,light.getDistance(gp._point));
         return intersections==null;
     }
 }

@@ -43,7 +43,7 @@ public class Geometries extends Intersectable {
         List<GeoPoint> intersections = null;
         for (Intersectable item : _intersectables) {
             //get intersections points of a particular item from _intersectables
-            List<GeoPoint> itempoints = item.findGeoIntersections(ray);
+            List<GeoPoint> itempoints = item.findGeoIntersections(ray,maxDistance);
             if(itempoints!= null){
                 //first time initialize result to new LinkedList
                 if(intersections== null){
