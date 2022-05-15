@@ -18,6 +18,28 @@ public class Ray {
         this._dir = dir.normalize();
     }
 
+    //parameter for size of first moving rays for shading rays
+    private static final double DELTA = 0.1;
+
+    /**
+     * constructor for Ray
+     * set the ray with the sliding of
+     * the initial point in the delta on the normal
+     * @param p the initial point
+     * @param dir the direction of the ray
+     * @param n the normal
+     */
+    public Ray(Point p, Vector dir, Vector n) {
+        //point + normal.scale(±DELTA)
+        _dir = dir.normalize();
+
+        double nv = n.dotProduct(_dir);
+
+        Vector normalEpsilon = n.scale((nv > 0 ? DELTA : -DELTA));
+        _p0 = p.add(normalEpsilon);
+    }
+
+
     /**
      * getting p0
      * @return value of point

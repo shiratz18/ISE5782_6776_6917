@@ -1,18 +1,30 @@
 package lighting;
 
 import primitives.Color;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
+
 /**
  * class for a point light with position and without direction
-
  */
-public class PointLight extends Light implements LightSource{
-    private Point _position;
-    private double _kC=1;// Constant attenuation
-    private double _kL=0;// Linear attenuation
-    private double _kQ=0;// Quadratic attenuation
+public class PointLight extends Light implements LightSource {
+    private final Point _position;
+    private double _kC = 1;// Constant attenuation
+    private double _kL = 0;// Linear attenuation
+    private double _kQ = 0;// Quadratic attenuation
 
+
+    /**
+     * default constructor the constant attenuation value is 1 and the other two values are 0
+     *
+     * @param intensity
+     * @param position
+     */
+    public PointLight(Color intensity, Point position) {
+        super(intensity);
+        _position = position;
+    }
 
     public PointLight(Color intensity, Point position, double kC, double kL, double kQ) {
         super(intensity);
@@ -23,13 +35,8 @@ public class PointLight extends Light implements LightSource{
     }
 
     /**
-     * default constructor the constant attenuation value is 1 and the other two values are 0
-     * @param intensity
-     * @param position
-     */
-    public PointLight(Color intensity,Point position) {this(intensity,position,1d,0d,0d);}
-    /**
      * setter for kc
+     *
      * @param kC the constant attenuation
      * @return the point light
      */
@@ -37,8 +44,21 @@ public class PointLight extends Light implements LightSource{
         _kC = kC;
         return this;
     }
+
+//   /**
+//     * setter for kc
+//     *
+//     * @param kC the constant attenuation
+//     * @return the point light
+//     */
+//    public PointLight setKc(Double3 kC) {
+//        _kC =  new Double3(kC);
+//        return this;
+//    }
+
     /**
      * setter for kl
+     *
      * @param kL the linear attenuation
      * @return the point light
      */
@@ -46,8 +66,10 @@ public class PointLight extends Light implements LightSource{
         _kL = kL;
         return this;
     }
+
     /**
      * setter for kq
+     *
      * @param kQ the quadratic attenuation
      * @return the point light
      */
@@ -55,8 +77,10 @@ public class PointLight extends Light implements LightSource{
         _kQ = kQ;
         return this;
     }
+
     /**
-     *getter for intensity
+     * getter for intensity
+     *
      * @param p=the point that we return its color
      * @return the intensity color
      */
@@ -68,12 +92,14 @@ public class PointLight extends Light implements LightSource{
         //factor of attenuation depends on distance
         double factor = _kC + _kL * d + _kQ * dsquared;
         // attenuate intensity by factor;
-        Color result = _intensity.reduce(factor);
+        Color lightIntensity = _intensity;
 
-        return result;
+        return lightIntensity.reduce(factor);
     }
+
     /**
      * getter for the light direction
+     *
      * @param p=the point the light comes to
      * @return the light direction
      */
@@ -84,8 +110,10 @@ public class PointLight extends Light implements LightSource{
         }
         return p.subtract(_position).normalize();
     }
+
     /**
      * return the distance between the light and the point
+     *
      * @param point the point
      * @return return the distance from light to point
      */
