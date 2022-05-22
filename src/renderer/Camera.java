@@ -116,7 +116,7 @@ public class Camera {
         }
 
     //to do
-        return new Ray(_p0, Pij.subtract(_p0));
+        return new Ray(_p0, Pij.subtract(_p0 ));
     }
 
     public Camera setVPDistance(int distance) {
@@ -161,11 +161,9 @@ public class Camera {
             //rendering the image
             int nX = _imageWriter.getNx();
             int nY = _imageWriter.getNy();
-            for (int i = 0; i < nX; i++) {
-                for (int j = 0; j < nY; j++) {
-                    Ray ray = constructRay(nX, nY, i, j);
-                    Color pixelColor = _rayTracerBase.traceRay(ray);
-                    _imageWriter.writePixel(i, j, pixelColor);
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    castRay(nX,nY,i,j);
                 }
             }
         } catch (MissingResourceException e) {
@@ -174,6 +172,19 @@ public class Camera {
         return this;
     }
 
+    /**
+     * Cast ray from camera in order to color a pixel
+     *
+     * @param nX  - resolution on X axis (number of pixels in row)
+     * @param nY  - resolution on Y axis (number of pixels in column)
+     * @param iC - pixel's column number (pixel index in row)
+     * @param jR - pixel's row number (pixel index in column)
+     */
+    private void castRay(int nX, int nY, int iC, int jR) {
+        Ray ray = constructRay(nX, nY, jR, iC);
+        Color pixelColor = _rayTracerBase.traceRay(ray);
+        _imageWriter.writePixel(jR, iC, pixelColor);
+    }
 
 
 

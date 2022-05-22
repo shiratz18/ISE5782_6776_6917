@@ -99,12 +99,12 @@ public class ImageWriter {
      */
     public void printGrid(int interval, Color color) {
         //move on the width
-        for (int i = 0; i < _nX; i++) {
+        for (int i = 0; i < _nY; i++) {
             //move on the length
-            for (int j = 0; j < _nY; j++) {
+            for (int j = 0; j < _nX; j++) {
                 //if it is the match place color it
                 if (i % interval == 0 || j % interval == 0) {
-                    writePixel(i, j, color);
+                    writePixel(j, i, color);
                 }
             }
         }
@@ -112,11 +112,11 @@ public class ImageWriter {
 
     /**
      * fill the background in the matching color
-     * @param bacckgroundColor color of the background in the image
+     * @param backgroundColor color of the background in the image
      */
-    public void fillBackground(Color bacckgroundColor) {
+    public void fillBackground(Color backgroundColor) {
         Graphics2D g2d = _image.createGraphics();
-        g2d.setColor(bacckgroundColor.getColor());
+        g2d.setColor(backgroundColor.getColor());
         g2d.fillRect(0, 0, _nX, _nY);
     }
 }

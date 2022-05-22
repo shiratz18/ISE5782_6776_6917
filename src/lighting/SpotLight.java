@@ -9,12 +9,9 @@ import primitives.Vector;
 
  */
 public class SpotLight extends PointLight{
-    private Vector _direction;
+    private final Vector _direction;
+    private double _narrowBeam=0d;
 
-    public SpotLight(Color intensity, Point position, double kC, double kL, double kQ, Vector direction) {
-        super(intensity, position, kC, kL, kQ);
-        _direction = direction.normalize();
-    }
     /**
      * constructor of spotLight
      * @param intensity=the color of the light
@@ -24,6 +21,18 @@ public class SpotLight extends PointLight{
     public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
         _direction = direction.normalize();
+    }
+
+    /**
+     *
+     * @param narrowBeam
+     */
+    public SpotLight setNarrowBeam(double narrowBeam) {
+        _narrowBeam = narrowBeam;
+        return this;
+    }
+    public double getNarrowBeam() {
+        return _narrowBeam;
     }
     /**
      * getter for intensity
@@ -35,11 +44,12 @@ public class SpotLight extends PointLight{
         Color pointIntensity = super.getIntensity(p);
         Vector l=getL(p);
         double attenuation=l.dotProduct(_direction);
-        Color result = pointIntensity.scale(Math.max(0,attenuation));
+        double factor=Math.max(0,attenuation);
+        Color result = pointIntensity.scale(factor);
         return (result);
     }
     //bonus
-    public SpotLight setNarrowBeam(int i) {
-        return this;
+    //public SpotLight setNarrowBeam(int i) {
+    //    return this;
     }
-}
+

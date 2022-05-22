@@ -5,6 +5,8 @@ import java.util.Objects;
 import geometries.Intersectable.GeoPoint;
 // this class presents ray between point to point
 public class Ray {
+    //parameter for size of first moving rays for shading rays
+    private static final double DELTA = 0.1;
     private Point _p0;
     private Vector _dir;
 
@@ -18,16 +20,15 @@ public class Ray {
         this._dir = dir.normalize();
     }
 
-    //parameter for size of first moving rays for shading rays
-    private static final double DELTA = 0.1;
+
 
     /**
-     * constructor for Ray
+     * constructor for Ray deflected by epsilon
      * set the ray with the sliding of
      * the initial point in the delta on the normal
      * @param p the initial point
      * @param dir the direction of the ray
-     * @param n the normal
+     * @param n the normal vector
      */
     public Ray(Point p, Vector dir, Vector n) {
         //point + normal.scale(±DELTA)
