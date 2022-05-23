@@ -2,7 +2,7 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import geometries.*;
 import primitives.*;
 import static primitives.Util.*;
 
@@ -98,11 +98,36 @@ public class Polygon extends Geometry {
      * @param ray the ray {@link Ray} that intersect with the graphic object
      * @return list of intersection points
      */
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 
+        List<GeoPoint> result = _plane.findGeoIntersectionsHelper(ray, maxDistance);
+        if (result == null) {
+            return null;
+        }
+        int numV = _vertices.size();
+        Point p0 = ray.getP0();
+        Vector dir = ray.getDir();
 
+        Vector vector1 = _vertices.get(numV - 1).subtract(p0);
+        Vector vector2 = _vertices.get(0).subtract(p0);
 
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
-        return null;
+        Vector normal = vector1.crossProduct(vector2).normalize();
+        double dirDotProN = dir.dotProduct(normal);
+        boolean positive = dirDotProN > 0;
+        if (isZero(dirDotProN)) {
+            return null;
+        }
+
+        for (int i = 1; i < numV; ++i) {
+            vector1 = vector2;
+            vector2 = _vertices.get(i).subtract(p0);
+            normal = vector1.crossProduct(vector2).normalize();
+            dirDotProN = dir.dotProduct(normal);
+
+            if (isZero(dirDotProN) || dirDotProN > 0 != positive) {
+                return null;
+            }
+        }
+        return List.of(new GeoPoint(this, result.get(0)._point));
     }
 }

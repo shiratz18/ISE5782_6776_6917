@@ -82,7 +82,7 @@ public class Plane extends Geometry {
      * @return list of intersection points
      */
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
         Vector n = _normal;
