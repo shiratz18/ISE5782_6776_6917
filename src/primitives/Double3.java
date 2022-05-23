@@ -11,9 +11,9 @@ import static primitives.Util.*;
  * @author Dan Zilberstein
  */
 public class Double3 {
-	final double d1;
-	final double d2;
-	final double d3;
+	final double _d1;
+	final double _d2;
+	final double _d3;
 
 	/**
 	 * Zero triad (0,0,0)
@@ -33,9 +33,9 @@ public class Double3 {
 	 * @param d3 third number value
 	 */
 	public Double3(double d1, double d2, double d3) {
-		this.d1 = d1;
-		this.d2 = d2;
-		this.d3 = d3;
+		this._d1 = d1;
+		this._d2 = d2;
+		this._d3 = d3;
 	}
 
 	/**
@@ -44,9 +44,9 @@ public class Double3 {
 	 * @param value number value for all 3 numbers
 	 */
 	public Double3(double value) {
-		this.d1 = value;
-		this.d2 = value;
-		this.d3 = value;
+		this._d1 = value;
+		this._d2 = value;
+		this._d3 = value;
 	}
 
 	@Override
@@ -56,18 +56,18 @@ public class Double3 {
 		if (obj == null)
 			return false;
 		if (obj instanceof Double3 other)
-			return isZero(d1 - other.d1) && isZero(d2 - other.d2) && isZero(d3 - other.d3);
+			return isZero(_d1 - other._d1) && isZero(_d2 - other._d2) && isZero(_d3 - other._d3);
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return (int) Math.round(d1 + d2 + d3);
+		return (int) Math.round(_d1 + _d2 + _d3);
 	}
 
 	@Override
 	public String toString() {
-		return "(" + d1 + "," + d2 + "," + d3 + ")";
+		return "(" + _d1 + "," + _d2 + "," + _d3 + ")";
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class Double3 {
 	 * @return result of add
 	 */
 	public Double3 add(Double3 rhs) {
-		return new Double3(d1 + rhs.d1, d2 + rhs.d2, d3 + rhs.d3);
+		return new Double3(_d1 + rhs._d1, _d2 + rhs._d2, _d3 + rhs._d3);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class Double3 {
 	 * @return result of add
 	 */
 	public Double3 subtract(Double3 rhs) {
-		return new Double3(d1 - rhs.d1, d2 - rhs.d2, d3 - rhs.d3);
+		return new Double3(_d1 - rhs._d1, _d2 - rhs._d2, _d3 - rhs._d3);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class Double3 {
 	 * @return result of scale
 	 */
 	public Double3 scale(double rhs) {
-		return new Double3(d1 * rhs, d2 * rhs, d3 * rhs);
+		return new Double3(_d1 * rhs, _d2 * rhs, _d3 * rhs);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class Double3 {
 	 * @return result of scale
 	 */
 	public Double3 reduce(double rhs) {
-		return new Double3(d1 / rhs, d2 / rhs, d3 / rhs);
+		return new Double3(_d1 / rhs, _d2 / rhs, _d3 / rhs);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class Double3 {
 	 * @return result of product
 	 */
 	public Double3 product(Double3 rhs) {
-		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
+		return new Double3(_d1 * rhs._d1, _d2 * rhs._d2, _d3 * rhs._d3);
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public class Double3 {
 	 */
 
 	public boolean lowerThan(double k) {
-		return d1 < k && d2 < k && d3 < k;
+		return _d1 < k && _d2 < k && _d3 < k;
 	}
 
 }

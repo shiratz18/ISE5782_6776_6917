@@ -39,7 +39,7 @@ public class Point {
      */
     public double getX()
     {
-        return _xyz.d1;
+        return _xyz._d1;
     }
 
     /**
@@ -48,7 +48,7 @@ public class Point {
      */
     public double getY()
     {
-        return _xyz.d2;
+        return _xyz._d2;
     }
 
     /**
@@ -57,7 +57,7 @@ public class Point {
      */
     public double getZ()
     {
-        return _xyz.d3;
+        return _xyz._d3;
     }
     /**
      * checking if the object are the same
@@ -98,7 +98,7 @@ public class Point {
         //create a new double3 with the result of the adding between those vectors
         Double3 result=_xyz.add(vector._xyz);
         //create a new point by the details of the result
-        return new Point(result.d1, result.d2,result.d3);
+        return new Point(result._d1, result._d2,result._d3);
     }
 
     /**
@@ -115,7 +115,7 @@ public class Point {
             throw  new IllegalArgumentException("subtract resulting ZERO vector - not allowed");
         }
         //create a new vector by the details of the result
-        return new Vector(result.d1, result.d2, result.d3);
+        return new Vector(result._d1, result._d2, result._d3);
     }
 
     /**
@@ -128,7 +128,7 @@ public class Point {
          //create a new vector with the result of the subtracting between those points
         Vector result= point.subtract(this);
         //return the point of each value of result coordinate in pow 2
-         return result._xyz.d1*result._xyz.d1+result._xyz.d2*result._xyz.d2+result._xyz.d3*result._xyz.d3;
+         return result._xyz._d1 *result._xyz._d1 +result._xyz._d2 *result._xyz._d2 +result._xyz._d3 *result._xyz._d3;
      }
 
     /**

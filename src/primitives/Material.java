@@ -1,17 +1,39 @@
 package primitives;
 
 public class Material {
-    public Double3 _kD = new Double3(0d);
-    public Double3 _kS = new Double3( 0d);
-    public int _nShininess = 0;
+    private Double3 _kD = new Double3(0d);
+    private Double3 _kS = new Double3( 0d);
+    private Double3 _kt = new Double3(0d);
+    private int _nShininess = 0;
     /**
      * Reflective coefficient
      */
-    public Double3 _kr= new Double3(0d);
+    private Double3 _kr= new Double3(0d);
+
+    public Double3 getkD() {
+        return _kD;
+    }
+
+    public Double3 getkS() {
+        return _kS;
+    }
+
+    public int getnShininess() {
+        return _nShininess;
+    }
+
+    public Double3 getKr() {
+        return _kr;
+    }
+
+    public Double3 getKt() {
+        return _kt;
+    }
+
     /**
      * Transparency Coefficient
      */
-    public Double3 _kt = new Double3(0d);
+
 
     /**
      * setter
@@ -48,4 +70,5 @@ public class Material {
         _nShininess = nShininess;
         return this;
     }
+
 }
