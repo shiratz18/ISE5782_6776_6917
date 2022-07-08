@@ -2,6 +2,9 @@ package renderer;
 import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
+
+import java.util.LinkedList;
+
 /**
  * This abstract class will present a ray that serve class of ray tracer basic based on three numbers
  */
@@ -24,5 +27,6 @@ public abstract class RayTracerBase {
      */
     public abstract Color traceRay(Ray ray);
 
+    public abstract Color averageColor(LinkedList<Ray> rays);
     }
 

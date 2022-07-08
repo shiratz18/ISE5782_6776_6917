@@ -1,14 +1,21 @@
 package primitives;
 
 public class Material {
-    private Double3 _kD = new Double3(0d);
-    private Double3 _kS = new Double3( 0d);
-    private Double3 _kt = new Double3(0d);
+    private Double3 _kD = new Double3(0d);//Diffuse
+    private Double3 _kS = new Double3( 0d);//Specular
+    private Double3 _kt = new Double3(0d);//Transparency
+    private Double3 _kr= new Double3(0d);//Reflection
+
+    public Material setkG(double kG) {
+        _kG = kG; //Math.pow(kG, 0.5;
+        return this;
+    }
+
+    public double getkG() {return _kG;}
+
+    private double _kG= 0d;//Glossy
+
     private int _nShininess = 0;
-    /**
-     * Reflective coefficient
-     */
-    private Double3 _kr= new Double3(0d);
 
     public Double3 getkD() {
         return _kD;

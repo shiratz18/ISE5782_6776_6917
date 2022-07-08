@@ -4,6 +4,7 @@ import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
 import lighting.AmbientLight;
+import lighting.PointLight;
 import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
@@ -15,6 +16,8 @@ import renderer.ImageWriter;
 import renderer.RayTracerBasic;
 import scene.Scene;
 
+import java.security.cert.PolicyNode;
+
 import static java.awt.Color.*;
 
 public class SnukerTest1 {
@@ -24,12 +27,12 @@ public class SnukerTest1 {
 
     @Test
     public void tableSnuker() {
-        Camera camera = new Camera(new Point(0,800,800),
-                new Vector(0, -1, -1),
-                new Vector(0,-1,1)) //
+        Camera camera = new Camera(new Point(750,10,800),
+                new Vector(-1, 0, -1),
+                new Vector(-1,0,1)) //
                 .setVPSize(150, 150)
-                .setVPDistance(1000)
-                .setRayTracer(new RayTracerBasic(scene));
+                .setVPDistance(1000);
+
 
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
@@ -93,11 +96,12 @@ public class SnukerTest1 {
                //triangles for legs of table
 
                 //first leg
-                new Polygon(new Point(50,-25,40),new Point(50,-17,35), new Point(-50,-25,0)).setEmission(colorWood),//
+                new Polygon(new Point(50,-25,40),new Point(50,-17,35), new Point(50,-25,0)).setEmission(colorWood),//
 
                 new Polygon(new Point(42,-25,35),new Point(50,-25,40), new Point(50,-25,0)).setEmission(colorWood),
-               //second leg
-                new Polygon(new Point(50,17,35),new Point(50,17,40), new Point(50,25,0)).setEmission(colorWood),
+
+                //second leg
+                new Polygon(new Point(50,25,40),new Point(50,17,35), new Point(50,25,0)).setEmission(colorWood),
 
                 new Polygon(new Point(50,25,0),new Point(42,25,35), new Point(50,25,40)).setEmission(colorWood),
 
@@ -111,32 +115,59 @@ public class SnukerTest1 {
 
                 new Polygon(new Point(-50,17,35),new Point(-50,25,40), new Point(-50,25,0)).setEmission(colorWood),
                 //balls
-                new Sphere(new Point(-30, 15, 37.5), 2.5d).setEmission(new Color(100, 20, 20)) //
+                new Sphere(new Point(-40, 5, 37.5), 2.5d).setEmission(new Color(RED)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
 
-                 new Sphere(new Point(30, 5, 37.5), 2.5d).setEmission(new Color(BLUE)) //
+                new Sphere(new Point(-40, 0, 37.5), 2.5d).setEmission(new Color(RED)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
+
+                 new Sphere(new Point(40, 5, 37.5), 2.5d).setEmission(new Color(BLUE)) //
                 .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
 
-                new Sphere(new Point(-10, 10, 37.5), 2.5d).setEmission(new Color(WHITE)) //
+                new Sphere(new Point(40, 0, 37.5), 2.5d).setEmission(new Color(BLUE)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
 
-                new Sphere(new Point(10, -8, 37.5), 2.5d).setEmission(new Color(PINK)) //
+                new Sphere(new Point(30, 17.5, 37.5), 2.5d).setEmission(new Color(BLUE)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
 
-                new Sphere(new Point(-20, -5, 37.5), 2.5d).setEmission(new Color(ORANGE)) //
+                new Sphere(new Point(30, -17.5, 37.5), 2.5d).setEmission(new Color(BLUE)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
 
-                new Sphere(new Point(40, -15, 37.5), 2.5d).setEmission(new Color(102,0,204)) //
+                new Sphere(new Point(-30, 17.5, 37.5), 2.5d).setEmission(new Color(RED)) //
                         .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
-                //hall in the table
-                new Polygon(new Point(50,25,0),new Point(42,25,35), new Point(50,25,40)).setEmission(Color.BLACK));
+
+                new Sphere(new Point(-30, -17.5, 37.5), 2.5d).setEmission(new Color(RED)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
+
+                new Sphere(new Point(0, 0, 37.5), 2.5d).setEmission(new Color(WHITE)) //
+                        .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
+
+                //triangles on the table
+                new Polygon(new Point(45,-13,40), new Point(45,-15,35),new Point(-15,-13,35)).setEmission(colorWood),
+                new Polygon(new Point(45,-13,40), new Point(45,-11,35),new Point(-15,-13,35)).setEmission(colorWood),
+                new Polygon(new Point(45,-15,35), new Point(45,-11,35),new Point(-15,-13,35)).setEmission(colorWood),
+
+                new Polygon(new Point(-45,13,40), new Point(-45,15,35),new Point(15,13,35)).setEmission(colorWood),
+                new Polygon(new Point(-45,13,40), new Point(-45,11,35),new Point(15,13,35)).setEmission(colorWood),
+                new Polygon(new Point(-45,15,35), new Point(-45,11,35),new Point(15,13,35)).setEmission(colorWood),
+
+                 //sides
+                new Polygon(new Point(-70,55,0), new Point(-70,45,0),new Point(-70,45,70),new Point(-70,55,70)).setEmission(colorWood),
+                new Polygon(new Point(-75,50,0), new Point(-70,55,0),new Point(-70,55,70),new Point(-75,50,70)).setEmission(new Color(YELLOW)),
+                new Polygon(new Point(-75,50,0), new Point(-70,45,0),new Point(-70,45,70),new Point(-75,50,70)).setEmission(colorWood),
+
+                new Sphere(new Point(-70,50,70),10).setEmission(new Color(255,215,0)));
         scene.getLights().add( //
                 new SpotLight(new Color(1000, 600, 0), new Point(-100, -100, 500), new Vector(-1, -1, -2)) //
                         .setKl(0.0004).setKq(0.0000006));
+        scene.getLights().add( //
+                new SpotLight(new Color(800, 500, 0), new Point(-70,50,70), new Vector(-70, 55, 70)) //
+                        .setKl(0.0004).setKq(0.0000006));
 
-        camera.setImageWriter(new ImageWriter("tableOfSnuker", 500, 500)) //
+        camera.setImageWriter(new ImageWriter("miniProject1", 500, 500)) //
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
                 .writeToImage();
+
     }
 }
